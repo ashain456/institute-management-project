@@ -52,12 +52,6 @@ Server (http://127.0.0.1:8000) started message come
 
 Base Path: http://127.0.0.1:8000/<route>
 
-#### Seeder Generated Default Agent Login Info
-
-````
-Email: admin@support.lk
-Password: admin@123
-````
 #### Postman Collection
 
 ````
