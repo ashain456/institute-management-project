@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\InstituteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/')->group(function () {
+    Route::post('student', [InstituteController::class, 'createStudent']);
+    Route::post('course', [InstituteController::class, 'createCourse']);
+    Route::post('course/enrollment', [InstituteController::class, 'createCourseEnrollment']);
+    Route::get('students', [InstituteController::class, 'getStudents']);
+    Route::get('courses', [InstituteController::class, 'getcourses']);
+    Route::get('student/{id}/course', [InstituteController::class, 'getstudentCoursesById']);
 });
