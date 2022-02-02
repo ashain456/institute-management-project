@@ -50,7 +50,7 @@ MAIL_FROM_NAME="Institute Head Office"
 COMMAND: `php artisan serve`
 Server (http://127.0.0.1:8000) started message come
 
-Base Path: http://127.0.0.1:8000/<route>
+Base Path: http://127.0.0.1:8000/api/v1/<route>
 
 #### Postman Collection
 
@@ -64,25 +64,31 @@ https://www.getpostman.com/collections/796df113e3ad9cbc1f39
 
 ![alt text](1.png)
 
+
 2. Register Course
 
 ![alt text](2.png)
+
 
 3. Course Enrollment to Student
 
 ![alt text](3.png)
 
+
 4. Get Students Info
 
 ![alt text](4.png)
+
 
 5. Get Courses Info
 
 ![alt text](5.png)
 
+
 6. Get Courses Enrollment to Student
 
 ![alt text](6.png)
+
 
 7. Student Welcome Email Message
 
