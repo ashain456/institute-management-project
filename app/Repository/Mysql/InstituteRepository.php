@@ -2,6 +2,7 @@
 
 namespace App\Repository\Mysql;
 
+use App\Exceptions\DomainException;
 use App\Models\CourseModel;
 use App\Models\StudentCourseModel;
 use App\Models\StudentModel;
@@ -40,7 +41,7 @@ class InstituteRepository implements InstituteRepositoryInterface
             return StudentCourseModel::create($data);
         }catch (\Exception $ex) {
             Log::error("Error in query: ", (array)$ex);
-            throw $ex;
+            throw new DomainException('Your error message',124124, $ex);
         }
     }
 

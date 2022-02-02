@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
+| http://127.0.0.1:8000/api/v1/<route>
 */
 Route::prefix('v1/')->group(function () {
     Route::post('student', [InstituteController::class, 'createStudent']);

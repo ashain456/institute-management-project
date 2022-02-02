@@ -55,14 +55,20 @@ class InstituteController extends Controller
 
         if($res){
 
-            $subject = "Welcome you to our institute";
-            $to = $data['email'];
-            $body = "<p>Dear Student,</p>";
-            $body .= "<p>We are delighted to welcome you to our institute and excited by the return of our vibrant campus life! Whether you are beginning or continuing your educational journey with us, we look forward to learning, exploring, and growing together.</p>";
-            $body .= "<p>Sincerely, <br />Henry T. Fernando <br />Course Coordinator</p>";
+            try {
 
-            // use event to fire email
-            Event::dispatch(new SendMail($to, $subject, $body))->onQueue('queue1');
+                $subject = "Welcome you to our institute";
+                $to = $data['email'];
+                $body = "<p>Dear Student,</p>";
+                $body .= "<p>We are delighted to welcome you to our institute and excited by the return of our vibrant campus life! Whether you are beginning or continuing your educational journey with us, we look forward to learning, exploring, and growing together.</p>";
+                $body .= "<p>Sincerely, <br />Henry T. Fernando <br />Course Coordinator</p>";
+
+                // use event to fire email
+                Event::dispatch(new SendMail($to, $subject, $body))->onQueue('queue1');
+
+            }catch (\Exception $ex) {
+                Log::error("Error in mail send: ", (array)$ex);
+            }
 
         }
 
