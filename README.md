@@ -45,9 +45,6 @@ MAIL_FROM_NAME="Institute Head Office"
 - migrate table to DB
   COMMAND: `php artisan migrate:fresh`
 
-- create admin login account default
-  COMMAND: `php artisan db:seed --class=UserSeeder`
-
 #### Run Laravel Application
 
 COMMAND: `php artisan serve`
@@ -77,5 +74,3 @@ Password: admin@123
 ![alt text](6.png)
 
 ![alt text](7.png)
-
-![alt text](8.png)
