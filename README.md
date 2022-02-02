@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Institute Management
+## Institute Management API
 
 #### Laravel Setup (Laravel version 8 - PHP 7.4)
 
