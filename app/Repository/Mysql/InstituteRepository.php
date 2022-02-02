@@ -3,6 +3,7 @@
 namespace App\Repository\Mysql;
 
 use App\Exceptions\DomainException;
+use App\Exceptions\ServerException;
 use App\Models\CourseModel;
 use App\Models\StudentCourseModel;
 use App\Models\StudentModel;
@@ -21,7 +22,7 @@ class InstituteRepository implements InstituteRepositoryInterface
             return StudentModel::create($data);
         }catch (\Exception $ex) {
             Log::error("Error in query: ", (array)$ex);
-            throw $ex;
+            throw new ServerException('Oops!! Some error occurred',time(), $ex);
         }
     }
 
@@ -31,7 +32,7 @@ class InstituteRepository implements InstituteRepositoryInterface
             return CourseModel::create($data);
         }catch (\Exception $ex) {
             Log::error("Error in query: ", (array)$ex);
-            throw $ex;
+            throw new ServerException('Oops!! Some error occurred',time(), $ex);
         }
     }
 
@@ -41,7 +42,15 @@ class InstituteRepository implements InstituteRepositoryInterface
             return StudentCourseModel::create($data);
         }catch (\Exception $ex) {
             Log::error("Error in query: ", (array)$ex);
-            throw new DomainException('Your error message',124124, $ex);
+            $error = $ex->errorInfo;
+            //dd($error);
+            if(isset($error) && $error[1] == 1452) {
+                throw new DomainException('Course / Student already assigned or not found',time(), $ex);
+            }elseif(isset($error) && $error[1] == 1062) {
+                throw new DomainException('Course is already assigned to the Student',time(), $ex);
+            }else{
+                throw new ServerException('Oops!! Some error occurred',time(), $ex);
+            }
         }
     }
 
@@ -51,7 +60,7 @@ class InstituteRepository implements InstituteRepositoryInterface
             return StudentModel::all();
         }catch (\Exception $ex) {
             Log::error("Error in query: ", (array)$ex);
-            throw $ex;
+            throw new ServerException('Oops!! Some error occurred',time(), $ex);
         }
     }
 
@@ -61,7 +70,7 @@ class InstituteRepository implements InstituteRepositoryInterface
             return CourseModel::all();
         }catch (\Exception $ex) {
             Log::error("Error in query: ", (array)$ex);
-            throw $ex;
+            throw new ServerException('Oops!! Some error occurred',time(), $ex);
         }
     }
 
@@ -77,7 +86,7 @@ class InstituteRepository implements InstituteRepositoryInterface
 
         }catch (\Exception $ex) {
             Log::error("Error in query: ", (array)$ex);
-            throw $ex;
+            throw new ServerException('Oops!! Some error occurred',time(), $ex);
         }
     }
 
