@@ -19,7 +19,7 @@
 
 #### Database setup (MySql) & mail server
 
-Create DB Name 'support_platform_db'
+Create DB Name 'institute_db'
 Query: `CREATE DATABASE institute_db;`
 
 create `.env` file using `.env.example` in laravel, update DB connection infomation
