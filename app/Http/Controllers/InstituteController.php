@@ -33,8 +33,8 @@ class InstituteController extends Controller
     {
 
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
+            'name' => 'required|unique:students,name',
+            'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:students,email',
             'password' => 'required',
             'status' => 'required'
         ],[
@@ -55,7 +55,7 @@ class InstituteController extends Controller
                 $body .= "<p>Sincerely, <br />Henry T. Fernando <br />Course Coordinator</p>";
 
                 // use event to fire email
-                Event::dispatch(new SendMail($to, $subject, $body));
+                event(new SendMail($to, $subject, $body));
 
             }catch (\Exception $ex) {
                 Log::error("Error in mail send: ", (array)$ex);
