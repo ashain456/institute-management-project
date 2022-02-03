@@ -31,7 +31,7 @@ class InstituteController extends Controller
      */
     public function createStudent(Request $request)
     {
-
+        // validate input data
         $request->validate([
             'name' => 'required|unique:students,name',
             'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:students,email',
@@ -45,25 +45,36 @@ class InstituteController extends Controller
         $res = $this->InstituteUsecase->createStudent($data);
 
         if($res){
-
-            try {
-
-                $subject = "Welcome you to our institute";
-                $to = $data['email'];
-                $body = "<p>Dear Student,</p>";
-                $body .= "<p>We are delighted to welcome you to our institute and excited by the return of our vibrant campus life! Whether you are beginning or continuing your educational journey with us, we look forward to learning, exploring, and growing together.</p>";
-                $body .= "<p>Sincerely, <br />Henry T. Fernando <br />Course Coordinator</p>";
-
-                // use event to fire email
-                event(new SendMail($to, $subject, $body));
-
-            }catch (\Exception $ex) {
-                Log::error("Error in mail send: ", (array)$ex);
-            }
-
+            $this->sendWelcomeEmailToStudent($data['email']);
         }
 
         return response()->json(['message' => 'Student Successfully Registered'], 201);
+
+    }
+
+
+    /**
+     * Send welcome registration email to the student
+     *
+     * @param $email
+     * @return void
+     */
+    private function sendWelcomeEmailToStudent($email){
+
+        try {
+
+            $subject = "Welcome you to our institute";
+            $to = $email;
+            $body = "<p>Dear Student,</p>";
+            $body .= "<p>We are delighted to welcome you to our institute and excited by the return of our vibrant campus life! Whether you are beginning or continuing your educational journey with us, we look forward to learning, exploring, and growing together.</p>";
+            $body .= "<p>Sincerely, <br />Henry T. Fernando <br />Course Coordinator</p>";
+
+            // use event to fire email
+            event(new SendMail($to, $subject, $body));
+
+        }catch (\Exception $ex) {
+            Log::error("Error in mail send: ", (array)$ex);
+        }
 
     }
 
@@ -76,6 +87,7 @@ class InstituteController extends Controller
      */
     public function createCourse(Request $request)
     {
+        // validate input data
         $request->validate([
             'code' => 'required|unique:courses,code',
             'name' => 'required',
@@ -96,6 +108,7 @@ class InstituteController extends Controller
      */
     public function createCourseEnrollment(Request $request)
     {
+        // validate input data
         $request->validate([
             'student_id' => 'required|integer',
             'course_id' => 'required|integer',
@@ -134,6 +147,8 @@ class InstituteController extends Controller
 
 
     /**
+     * Get all course enrollment to the student
+     *
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
