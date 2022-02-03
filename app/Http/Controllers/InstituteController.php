@@ -55,6 +55,7 @@ class InstituteController extends Controller
 
     /**
      * Send welcome registration email to the student
+     * Use events to fire mails
      *
      * @param $email
      * @return void
